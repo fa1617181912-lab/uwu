@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Elha's Eatery</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="auth-container" class="container">
+    <div class="left-panel">
+      <div class="logo">
+        <img src="logo.png" alt="Elha's Eatery Logo">
+        <h1>ELHA'S <span>EATERY</span></h1>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <div id="login-box" class="login-box">
+        <h2>Welcome!</h2>
+        <p>Sign up or log in</p>
+        <form id="login-form">
+          <input id="login-email" type="email" placeholder="Email" required>
+          <input id="login-password" type="password" placeholder="Password" required>
+          <button type="submit">Login</button>
+        </form>
+        <div class="divider">or</div>
+        <button id="signup-btn">Sign Up</button>
+      </div>
+
+      <div id="signup-box" class="login-box hidden">
+        <h2>Create Account</h2>
+        <form id="signup-form">
+          <input id="signup-name" type="text" placeholder="Full Name" required>
+          <input id="signup-email" type="email" placeholder="Email" required>
+          <input id="signup-password" type="password" placeholder="Password" required>
+          <button type="submit">Sign Up</button>
+        </form>
+        <p style="margin-top:15px;">Already have an account?</p>
+        <button id="back-to-login">Back to Login</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="dashboard" class="dashboard hidden">
+    <header class="user-header">
+      <div class="logo-small"><img src="logo.png" alt="logo"></div>
+      <nav class="user-nav">
+        <button id="home-btn" class="active">Home</button>
+        <button id="menu-btn">Menu</button>
+        <button id="cart-btn">Cart</button>
+        <button id="orders-btn">Orders</button>
+      </nav>
+      <div class="menu-toggle" id="user-menu-toggle">☰</div>
+      <div class="dropdown hidden" id="user-dropdown">
+        <button id="logout-btn">Logout</button>
+      </div>
+    </header>
+
+    <div class="search-bar">
+      <input id="search-input" type="text" placeholder="Search for food...">
+      <button id="search-btn">🔍</button>
+    </div>
+
+    <main id="home-page" class="home-sections">
+      <section class="home-section">
+        <h3>Promotions</h3>
+        <div class="teaser-grid" id="promo-list"></div>
+      </section>
+      <section class="home-section">
+        <h3>Featured Dishes</h3>
+        <div class="teaser-grid" id="featured-list"></div>
+      </section>
+      <section class="home-section">
+        <h3>Categories</h3>
+        <div class="teaser-grid" id="category-list"></div>
+      </section>
+      <section class="home-section">
+        <h3>Popular Orders</h3>
+        <div class="teaser-grid" id="popular-list"></div>
+      </section>
+      <section class="home-section">
+        <h3>New Dishes</h3>
+        <div class="teaser-grid" id="new-list"></div>
+      </section>
+    </main>
+
+    <main id="menu-page" class="menu-list hidden">
+      <div class="menu-header">
+        <h3 id="menu-title">Our Dishes</h3>
+        <button id="clear-filter-btn" class="clear-filter hidden">Clear Filter ✖</button>
+      </div>
+      <div id="user-menu-list"></div>
+    </main>
+
+    <main id="cart-page" class="cart-box hidden">
+      <h3>Your Cart</h3>
+      <ul id="cart-items"><li>No items yet.</li></ul>
+      <p id="cart-total">Total: ₱0</p>
+      <div id="cart-actions">
+        <button id="checkout-btn">Checkout</button>
+        <button id="cancel-btn">Clear Cart</button>
+      </div>
+    </main>
+
+    <main id="orders-page" class="orders-box hidden">
+      <h3>Your Orders</h3>
+      <div id="user-orders-list"><p>You have no active orders.</p></div>
+    </main>
+  </div>
+
+  <div id="admin-dashboard" class="dashboard hidden">
+    <header class="user-header">
+      <div class="logo-small"><img src="logo.png" alt="logo"></div>
+      <nav class="user-nav">
+        <button id="admin-menu-btn" class="active">Manage Menu</button>
+        <button id="admin-orders-btn">Manage Orders</button>
+        <button id="admin-promos-btn">Manage Promos</button>
+      </nav>
+      <div class="menu-toggle" id="admin-menu-toggle">☰</div>
+      <div class="dropdown hidden" id="admin-dropdown">
+        <button id="admin-logout-btn">Logout</button>
+      </div>
+    </header>
+
+    <main id="admin-menu-page" class="menu-list">
+      <h3 id="admin-form-title">Add a New Dish</h3>
+      <form id="add-dish-form" class="admin-form">
+        <input type="hidden" id="dish-edit-index">
+        <input type="text" id="dish-name" placeholder="Dish Name" required>
+        <input type="text" id="dish-desc" placeholder="Description" required>
+        <input type="number" id="dish-price" placeholder="Price" min="0" required>
+        <input type="text" id="dish-img" placeholder="Image URL" required>
+        <select id="dish-category" required>
+          <option value="">Select Category</option>
+          <option value="Chicken">Chicken</option>
+          <option value="Pork">Pork</option>
+          <option value="Beef">Beef</option>
+          <option value="Seafood">Seafood</option>
+          <option value="Vegetables">Vegetables</option>
+          <option value="Desserts">Desserts</option>
+          <option value="Drinks">Drinks</option>
+        </select>
+        <div class="checkbox-group">
+            <label><input type="checkbox" id="tag-featured" value="featured"> Featured</label>
+            <label><input type="checkbox" id="tag-popular" value="popular"> Popular</label>
+            <label><input type="checkbox" id="tag-new" value="new"> New</label>
+        </div>
+        <button type="submit" id="add-dish-btn">+ Add Dish</button>
+        <button type="button" id="cancel-edit-btn" class="hidden">Cancel Edit</button>
+      </form>
+      <hr class="form-divider">
+      <h3>Current Menu</h3>
+      <div id="admin-dish-list"></div>
+    </main>
+
+    <main id="admin-orders-page" class="orders-box hidden">
+      <h3>Orders Management</h3>
+      <input type="text" id="order-search" placeholder="Search by customer name or Order ID...">
+      <table id="orders-table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Items</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </main>
+
+    <main id="admin-promos-page" class="menu-list hidden">
+      <h3>Promotions Management</h3>
+      <form id="add-promo-form" class="admin-form">
+        <input type="text" id="promo-title" placeholder="Promo Title" required>
+        <input type="text" id="promo-desc" placeholder="Short Description" required>
+        <input type="text" id="promo-img" placeholder="Image URL" required>
+        <button type="submit">+ Add Promo</button>
+      </form>
+      <hr class="form-divider">
+      <h3>Current Promotions</h3>
+      <div id="admin-promo-list"></div>
+    </main>
+  </div>
+
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div id="payment-modal" class="modal-content">
+      <span class="close-modal-btn">&times;</span>
+
+      <div id="payment-choice-view">
+        <h3>Select Payment Method</h3>
+        <div class="payment-options">
+          <button id="online-payment-btn" class="payment-btn">Online Payment</button>
+          <button id="cashier-btn" class="payment-btn">Pay at Cashier</button>
+        </div>
+      </div>
+
+      <div id="online-payment-view" class="hidden">
+        <h3>Online Payment</h3>
+        <p>Please select your payment provider:</p>
+        <select id="online-provider-select">
+          <option value="GCash">GCash</option>
+          <option value="PayMaya">PayMaya</option>
+          <option value="Bank Transfer">Bank Transfer</option>
+        </select>
+        <button id="pay-now-btn">Pay Now</button>
+      </div>
+
+      <div id="cashier-confirm-view" class="hidden">
+        <h3>Proceed to Cashier</h3>
+        <p>Your order has been placed successfully!</p>
+        <p>Please present your Order ID at the counter to pay.</p>
+        <button id="close-confirm-btn">OK</button>
+      </div>
+
+      <div id="receipt-view" class="hidden">
+        <h3>Payment Successful!</h3>
+        <div id="receipt-content" class="receipt">
+          </div>
+        <div class="receipt-actions">
+           <button id="download-receipt-btn">Download Receipt</button>
+           <button id="close-receipt-btn">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
